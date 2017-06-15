@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>test</title>
+    <meta charset="utf-8">
+    <script src="./jquery-1.9.1.min.js"></script>
+</head>
+<body>
+    <style type="text/css">
+        li{
+            list-style: none;
+        }
+        .hide{
+            display: none;
+        }
+
+        img{
+            height: 400px;
+        }
+        #page1-wrap{
+            display: none;
+            position: fixed;
+            width: 400px;
+            height: 480px;
+            left: 50%;
+            top: 50%;
+            margin-left: -200px;
+            margin-top: -240px;
+            background: #fff;
+            color: #000;
+
+        }
+        #page1-scroll{
+            max-height: 480px;
+            overflow-y: auto;
+            scrollbar-face-color: #e2e2e2;
+            scrollbar-highlight-color: #eee;
+            scrollbar-shadow-color: #dcdcdc;
+            scrollbar-arrow-color: #dcdcdc;
+            scrollbar-track-color: #f4f4f4;
+        }
+        #page1-con{
+            height: 600px;
+            width: 100%;
+        }
+        .full-mask{
+            display: none;
+            position: fixed;
+            top: 0;
+            width:100%;
+            height: 100%;
+            background: #000;
+            opacity: .6;  
+        }
+    </style>
+    
+    <div class="clearfix" id="page0">
+        <ul>
+            <li>
+                <img  src="./img/2.jpeg" data-src="./img/01.jpg">
+            </li>
+            <li>
+                <img  src="./img/2.jpeg" data-src="./img/02.jpeg">
+            </li>
+        </ul>
+    </div>
+    <div class="wrapper">
+        <button>查看更多</button>
+    </div>
+    <div class="full-mask"></div>
+    <div class="clearfix bl-wrap" id="page1-wrap">
+        <div class="clearfix bl-wrap" id="page1-scroll">
+            <div class="clearfix bl-wrap" id="page1-con">
+                <h2>测试文章</h2>
+                <ul>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                    <li><p>测试段落</p></li>
+                </ul>
+                <p class="show-more">加载中，请稍候...</p>
+            </div>
+        </div>
+    </div>
+    <ul class="hide" id="page-more">
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+        <li><p>新段落</p></li>
+    </ul>
+    <script type="text/javascript">
+        $('button').on('click', function(){
+            $('#page1-wrap').show();
+            $('.full-mask').show();
+        });
+        function loadMore(cb){
+            $('#page1-con').find('ul').append($('#page-more').html());
+            cb && cb();
+        }
+        var canScroll = true;
+        $('#page1-scroll').on('scroll', function(){
+            if(!canScroll){
+                return;
+            }
+            canScroll = false;
+            var scrollHeight = $(this)[0].scrollTop;
+            var height = $(this).height();
+            var screenHeight = $(this)[0].scrollHeight;
+            if(scrollHeight + height + 30> screenHeight) {
+                // 加载下一页
+                loadMore(function(){
+                    canScroll = true;
+                });
+            }
+            else{
+                canScroll = true;
+            }
+        });
+    </script>
+</body>
+</html>
